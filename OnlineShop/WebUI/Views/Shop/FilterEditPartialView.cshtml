@@ -1,0 +1,9 @@
+﻿@model WebUI.Models.PageModels.ProductViews.FilterEditViewModel
+
+<div class="remove-filter">
+    @Ajax.ActionLink("Сбросить фильтры", "RefreshFilters", Model.Category, new AjaxOptions() { UpdateTargetId = Model.UpdateTargetId })
+    @if (Model.IsAdministrator)
+    {
+        @Html.ActionLink("Добавить", "Edit", Model.Category, new { id = 0, url = Request.Url.PathAndQuery }, null)
+    }
+</div>

@@ -1,0 +1,60 @@
+﻿@model WebUI.Models.PageModels.CartViewModel
+@{
+    ViewBag.Title = "Корзина";
+}
+@section Body
+{
+    @*СПИСОК ВЫБРАННЫХ ТОВАРОВ*@
+    <table>
+        <thead>
+            <tr>
+                <th> Количество </th>
+                <th> Наименование </th>
+                <th> Производитель </th>
+                <th> Цена </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cart.Lines)
+            {
+                <tr>
+                    <td>
+                        <label> @Html.DisplayFor(modelItem => item.Quantity)</label> <div class="border-line"></div>
+                    </td>
+                    <td> @Html.DisplayFor(modelItem => item.Product.Name)  <div class="border-line"></div></td>
+                    <td> @Html.DisplayFor(modelItem => item.Product.Company) <div class="border-line"></div> </td>
+                    <td> @Html.DisplayFor(modelItem => item.Product.Price) <div class="border-line"></div></td>
+                    <td><a href="~/Cart/Remove?name=@item.Product.Name&Url=@Model.ReturnUrl" class="glyphicon glyphicon-trash"></a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td> Итого: </td>
+                <td colspan="2"> </td>
+                <td> @Model.Cart.CalcTotalPrice().ToString() </td>
+                <td> </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    @*ВОЗВРАТ К СПИСКУ ТОВАРОВ*@
+    <div class="table-btn remove-filter">
+
+        @if (Model.ReturnUrl.Contains("List"))
+        {
+            <a href="@Model.ReturnUrl">Продолжить покупки</a>
+        }
+        else
+        {
+            @Html.ActionLink("Продолжить покупки", "Index", "Shop")
+        }
+        @*ФОРМИРОВАНИЕ ЗАКАЗА*@
+        @if (Model.Cart.CalcTotalPrice() > 0)
+        {
+            @Html.ActionLink("Оформление заказа", "Confirm", new { returnUrl = Model.ReturnUrl })
+        }
+    </div>
+}
+

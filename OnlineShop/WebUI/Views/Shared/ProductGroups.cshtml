@@ -1,0 +1,13 @@
+﻿@model Dictionary<string, string>
+
+@*КАТЕГОРИИ ТОВАРОВ*@
+<nav class="product-groups">
+    <ul style="list-style-type:none">
+        @foreach (var item in Model)
+        {
+            <li style=" display:inline-block" class="group-name">
+                @Html.ActionLink(item.Key, "List", item.Value)
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,43 @@
+﻿@*ПОИСК, ССЫЛКИ НА СТРАНИЦЫ*@
+<div class="col-md-5">
+    <div class="findForm">
+        <div class="group-name size-search">
+
+            @using (Html.BeginForm("List", "Shop", FormMethod.Get))
+            {
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <button>Поиск</button>
+                @Html.TextBox("expression")
+            }
+
+        </div>
+        <div class="avtorization">
+            @Html.ActionLink("Главная", "Index", "Shop")
+            @Html.ActionLink("О нас", "Index", "About")
+            @Html.ActionLink("Контакты", "Index", "Contacts")
+        </div>
+    </div>
+</div>
+
+@*ЛОГО*@
+<div class="col-md-4">
+    <a href="~/">
+        <img src="~/Content/images/logo.svg" class="logo" />
+    </a>
+</div>
+
+@*ПАНЕЛЬ АУТЕНТИФИКАЦИИ, КОРЗИНА*@
+<div class="col-md-3">
+    @Html.Action("GetLoginRegisterLink", "User")
+
+    @using (Html.BeginForm("Index", "Cart"))
+    {
+        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+
+        <button class="btn cart"><img src="~/Content/images/shop-cart.svg" />Корзина</button>
+
+        <label id="CartSummary">
+            @Html.Action("Summary", "Cart")
+        </label>
+    }
+</div>

@@ -1,0 +1,43 @@
+﻿@model WebUI.Models.PageModels.ProductViewModel
+
+@if (Model.Products.Count() != 0)
+{
+    if (Model.IsAdministrator)
+    {
+            <table>
+                <thead>
+                    <tr>
+                        <th> Название </th>
+                        <th> Производитель </th>
+                        <th> Цена </th>
+                        <th>  </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        @Html.Action("GetSummaryAdmin", "Shop", new { product = product, findExpression = Model.FindExpression })
+                    }
+                </tbody>
+            </table>
+    }
+    else
+    {
+        foreach (var product in Model.Products)
+        {
+            <div class="col-md-3">
+                @Html.Action("GetSummary", "Shop", new { product = product, findExpression = Model.FindExpression})
+            </div>
+        }
+    }
+}    
+else
+{
+    <div>
+        <h3>Ничего не найдено(</h3>
+    </div>
+}
+    <div class="number-page">
+        @Html.GetLinks(Model.PageInfo.TotalPages, "productDataSummary", l => Url.Action("GetList", new { page = l }))
+    </div>

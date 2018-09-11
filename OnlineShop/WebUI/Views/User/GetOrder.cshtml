@@ -1,0 +1,39 @@
+﻿@model WebUI.Models.PageModels.OrderForModel
+@{
+    ViewBag.Title = "Информация о заказе";
+}
+
+@section Body
+{
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <h4>Заказ №@Model.Number - @Model.Cost грн</h4>
+            <div class="remove-filter">
+                @Html.ActionLink("Вернуться", "Index")
+            </div>
+        </div>
+        <div class="col-md-8">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Стоимость</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Description)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(item.Name, "Details",item.Category, new { name = item.Name},null) <div class="border-line"></div></td>
+                            <td>@item.Price <div class="border-line"></div> </td>
+                            <td>@item.Count <div class="border-line"></div></td>
+                            <td>@item.Cost</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

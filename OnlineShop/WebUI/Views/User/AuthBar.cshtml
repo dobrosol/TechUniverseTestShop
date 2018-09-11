@@ -1,0 +1,7 @@
+﻿@model WebUI.Models.PageModels.AuthViewModel[]
+
+<div class="avtorization">
+    <a href="@Model[0].Url"><img src="~/Content/images/lock.svg" />@Model[0].Text</a>
+    <a href="@Model[1].Url"><img src="~/Content/images/account.svg" /> @Model[1].Text</a>
+</div>
+

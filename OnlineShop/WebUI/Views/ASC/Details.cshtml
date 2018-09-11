@@ -1,0 +1,54 @@
+﻿@model Domain.Concrete.ProductEntities.ASC
+
+@{
+    ViewBag.Title = "Характеристики товара";
+}
+
+@section Body
+{
+    <div>
+        <h3>Характеристики @Model.Name</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <div class="image-edit">
+                @if (Model.ImageData != null)
+                {
+                    <img src="@Url.Action("GetImage", "ASC", new { id = Model.Id })" />
+                }
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Характеристика</th>
+                        <th>Значение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewContext.ViewData.ModelMetadata.Properties)
+                    {
+                        if (item.PropertyName != "Id" && item.PropertyName != "ImageData" && item.PropertyName != "ImageType" && item.PropertyName != "Description" && item.PropertyName != "Category")
+                        {
+                            <tr>
+                                <td>@item.DisplayName</td>
+                                <td>@item.SimpleDisplayText</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <div class="description">
+            <p>@Model.Description</p>
+        </div>
+    </div>
+    <div class="remove-filter">
+        <a href="@TempData["returnUrl"]" >Вернуться к списку</a>
+    </div>
+}

@@ -1,0 +1,49 @@
+﻿@model WebUI.Models.PageModels.LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="~/Content/Login-RegisterStyle.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/tempStyle.css" />
+
+    <title>TechUniverse - Вход</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.EditorFor(m => m.Login, new { htmlAttributes = new { @placeholder = "Логин", @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Login, null, new { @class = "validation-message" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @placeholder = "Пароль", @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Password, null, new { @class = "validation-message" })
+        </div>
+
+        <div class="form-group"> @Html.ValidationSummary(true, null, new { @class = "validation-message" }) </div>
+
+        <div class="form-group">
+            @Html.CheckBoxFor(m => m.IsSaveBrowser)
+            <span>@Html.DisplayNameFor(m => m.IsSaveBrowser)</span>
+        </div>
+        <div class="form-group">
+            <input class="btn" type="submit" value="Вход" />
+        </div>
+        <div>
+            @Html.ActionLink("Регистрация","Register", "Account")
+        </div>
+    }
+    @Html.ActionLink("В магазин", "Index", "Shop")
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿@model WebUI.Models.PageModels.ASCViewModel
+
+<div class="filter-menu">
+    <ul class="filters">
+        <li class="filter-header">
+            <div class="filter-title"> Производитель  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></div>
+            <ul class="sub-menu">
+                @foreach (var c in ViewBag.Companies as Dictionary<string, bool>)
+                {
+                    <li>
+                        @if (c.Value)
+                        {
+                            <div class="cycleTrue"></div>
+                        }
+                        else
+                        {
+                            <div class="cycleFalse"></div>
+                        }
+                        @Ajax.ActionLink(c.Key, "GetList", new { comp = c.Key, sortType = Model.SortTypeChange }, new AjaxOptions() { UpdateTargetId = "AscDataSummary" })
+                    </li>
+                }
+            </ul>
+        </li>
+        <li class="filter-header">
+            <div class="filter-title">Диаметр вентилятора, мм <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></div>
+            <ul class="sub-menu">
+                @foreach (var d in ViewBag.FanDiameters as Dictionary<int, bool>)
+                {
+                    <li>
+                        @if (d.Value)
+                        {
+                            <div class="cycleTrue"></div>
+                        }
+                        else
+                        {
+                            <div class="cycleFalse"></div>
+                        }
+                        @Ajax.ActionLink(d.Key.ToString(), "GetList", new { fanDiameter = d.Key, sortType = Model.SortTypeChange }, new AjaxOptions() { UpdateTargetId = "AscDataSummary" })
+                    </li>
+                }
+            </ul>
+        </li>
+    </ul>
+</div>
+@*СБРОС ВСЕХ ФИЛЬТРОВ*@
+@Html.Action("GetFilterEdit", "Shop", new { updateTargetId = "AscDataSummary", isAdministrator = Model.IsAdministrator, category = "ASC" })

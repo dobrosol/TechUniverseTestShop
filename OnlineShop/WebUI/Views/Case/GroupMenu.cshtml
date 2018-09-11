@@ -1,0 +1,66 @@
+﻿@model WebUI.Models.PageModels.CaseViewModel
+
+<div class="filter-menu">
+    <ul class="filters">
+        <li class="filter-header">
+            <div class="filter-title"> Производитель  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></div>
+            <ul class="sub-menu">
+                @foreach (var c in ViewBag.Companies as Dictionary<string, bool>)
+            {
+                <li>
+                    @if (c.Value)
+                {
+                    <div class="cycleTrue"></div>
+            }
+            else
+            {
+                <div class="cycleFalse"></div>
+        }
+                    @Ajax.ActionLink(c.Key, "GetList", new { comp = c.Key, sortType = Model.SortTypeChange }, new AjaxOptions() { UpdateTargetId = "CaseDataSummary" })
+                </li>
+        }
+            </ul>
+        </li>
+        <li class="filter-header">
+            <div class="filter-title"> Мощность БП <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></div>
+            <ul class="sub-menu">
+                @foreach (var p in ViewBag.PSUs as Dictionary<string, bool>)
+            {
+                <li>
+                    @if (p.Value)
+                {
+                    <div class="cycleTrue"></div>
+            }
+            else
+            {
+                <div class="cycleFalse"></div>
+        }
+                    @Ajax.ActionLink(p.Key.ToString(), "GetList", new { psu = p.Key, sortType = Model.SortTypeChange }, new AjaxOptions() { UpdateTargetId = "CaseDataSummary" })
+                </li>
+        }
+            </ul>
+        </li>
+        <li class="filter-header">
+            <div class="filter-title"> Форм-фактор материнской платы <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></div>
+            <ul class="sub-menu">
+                @foreach (var f in ViewBag.FormFactors as Dictionary<string, bool>)
+            {
+                <li>
+                    @if (f.Value)
+                {
+                    <div class="cycleTrue"></div>
+            }
+            else
+            {
+                <div class="cycleFalse"></div>
+        }
+                    @Ajax.ActionLink(f.Key.ToString(), "GetList", new { form = f.Key, sortType = Model.SortTypeChange }, new AjaxOptions() { UpdateTargetId = "CaseDataSummary" })
+                </li>
+        }
+            </ul>
+        </li>
+    </ul>
+</div>
+@*СБРОС ВСЕХ ФИЛЬТРОВ*@
+@Html.Action("GetFilterEdit", "Shop", new { updateTargetId = "CaseDataSummary", isAdministrator = Model.IsAdministrator, category = "Case" })
+    

@@ -1,0 +1,27 @@
+﻿@model Domain.Concrete.Identity.UserProfile
+<div>
+    <div>
+        <div><h4>Контактная информация</h4></div>
+
+        <label>@Html.DisplayFor(model => model.Name) </label><br />
+
+        <label> @Html.DisplayFor(model => model.Surname) </label><br />
+
+        <label> @Html.DisplayFor(model => model.Email) </label><br />
+
+        <label>@Html.DisplayFor(model => model.PhoneNumber)</label><br />
+    </div>
+    <div>
+        <div><h4>Адрес доставки</h4></div>
+
+        <label> @Html.DisplayFor(model => model.Country) </label><br />
+
+        <label> @Html.DisplayFor(model => model.City) </label><br />
+
+        <label> @Html.DisplayFor(model => model.Street) </label><br />
+
+        <label> @Html.DisplayFor(model => model.House) </label><br />
+
+        <label> @Html.DisplayFor(model => model.Apartment) </label><br />
+    </div>
+</div>

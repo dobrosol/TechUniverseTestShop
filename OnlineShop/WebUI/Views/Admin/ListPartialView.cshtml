@@ -1,0 +1,36 @@
+﻿@model WebUI.Models.PageModels.Admin.OrdersViewModel
+@using WebUI.HtmlHelpers
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Код заказа</th>
+                <th>Общая стоимость</th>
+                <th>Пользователь</th>
+                <th>Дата/Время</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@Html.ActionLink(order.Id.ToString(), "GetOrder", new { id = order.Id }) <div class="border-line"></div></td>
+                    <td>@order.TotalCost <div class="border-line"></div> </td>
+                    <td>
+                        @if (order.UserId != null)
+                        {
+                            @Html.ActionLink(order.UserId, "GetUser",new { id = order.UserId })
+                        }
+                        <div class="border-line"></div>
+                    </td>
+                    <td>@order.DateTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="number-page">
+    @Html.GetLinks(Model.PageInfo.TotalPages, "AdminOrdersSummary", l => Url.Action("GetList", "Order", new { page = l }))
+</div>

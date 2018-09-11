@@ -1,0 +1,21 @@
+﻿@model WebUI.Models.PageModels.ASCViewModel
+
+@using WebUI.Models;
+
+@{
+    ViewBag.Title = "Системы охлаждения";
+}
+
+@section Body
+{
+    @*ПЛИТКИ С ТОВАРАМИ*@
+    <div id="AscDataSummary" class="container">
+        <div class="row">
+            @Html.Action("GetList")
+        </div>
+    </div>
+}
+@section SortMenu
+{
+    @Html.Action("GetSortMenu", "Shop", new { category = "ASC", categoryName = "Системы охлаждения", page = Model.PageInfo.CurrentPage, updateTargetId = "AscDataSummary"})
+}

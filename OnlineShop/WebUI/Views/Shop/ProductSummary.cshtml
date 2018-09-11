@@ -1,0 +1,22 @@
+﻿@model Domain.Concrete.ProductEntities.Product
+
+<div class="product-info">
+    <div class="inner">
+        @if (Model.ImageData != null)
+        {
+            <img height="170" src="@Url.Action("GetImage", Model.Category, new { id = Model.Id})" />
+        }
+    </div>
+
+    <p>
+        @Model.Company <br />
+        @Html.ActionLink(Model.Name, "GetAction", new { targetAction = "Details", productId = Model.Id, productCategory = Model.Category, returnUrl = Request.Url.AbsolutePath, expression = TempData["findExpression"] })
+    </p>
+
+    @using (Ajax.BeginForm("AddProduct", Model.Category, new AjaxOptions() { UpdateTargetId = "CartSummary" }))
+    {
+        @Html.HiddenFor(a => a.Id)
+        <input type="submit" value="Добавить" class="btn group-name submit" onclick="show('@Model.Name')">
+        <label class="price"> @Model.Price</label>
+    }
+</div>

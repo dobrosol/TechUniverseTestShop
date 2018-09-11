@@ -1,0 +1,7 @@
+﻿@model Domain.Concrete.ProductEntities.Product
+<tr>
+    <td> @Html.ActionLink(Model.Name, "GetAction", new { targetAction = "Edit", productId = Model.Id, productCategory = Model.Category, returnUrl = Request.Url.AbsolutePath, expression = TempData["findExpression"] }) <div class="border-line"></div> </td>
+    <td> @(Model.Company) <div class="border-line"></div> </td>
+    <td> @(Model.Price) <div class="border-line"></div> </td>
+    <td> <a href="~/@Model.Category/Delete?id=@Model.Id" class="glyphicon glyphicon-trash"></a> </td>
+</tr>

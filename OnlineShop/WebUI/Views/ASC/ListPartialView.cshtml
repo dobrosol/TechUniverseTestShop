@@ -1,0 +1,59 @@
+﻿@model WebUI.Models.PageModels.ASCViewModel
+
+<div class="col-md-3">
+    @Html.Action("GetGroups")
+</div>
+
+<div class="col-md-9">
+    @*ПЕРЕЧЕНЬ ВЫБРАННЫХ ФИЛЬТРОВ*@
+    <div>
+        <span class="weight"> Фильтры:</span>
+        @if (Model.Filters != null)
+        {
+            foreach (var item in Model.Filters)
+            {
+                <span class="margin-right">@item </span>
+            }
+        }
+    </div>
+
+    @*ПЛИТКИ С ТОВАРАМИ*@
+    <div>
+        @if (Model.IsAdministrator)
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th> Название </th>
+                        <th> Производитель </th>
+                        <th> Цена </th>
+                        <th>  </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        @Html.Action("GetSummaryAdmin", "Shop", new { product = product })
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            foreach (var item in Model.Products)
+            {
+                <div class="col-md-4">
+                    @Html.Action("GetSummary", "Shop", new { product = item })
+                </div>
+            }
+        }
+
+    </div>
+
+    @*нОМЕРА СТРАНИЦ*@
+
+    <div class="number-page">
+        @Html.GetLinks(Model.PageInfo.TotalPages, "AscDataSummary", l => Url.Action("GetList", new { page = l, sortType = Model.SortTypeChange }))
+    </div>
+</div>

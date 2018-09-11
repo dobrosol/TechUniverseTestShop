@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @*AJAX MVC*@
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    
+    @*BOOTSTRAP*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    @*СТИЛИ*@
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <title>TechUniverse - @ViewBag.Title</title>
+
+    <script>
+        function show(name) {       
+            document.getElementById('window').style.display = "block";
+            document.getElementById('window-text').innerText = name;
+            setTimeout(explode, 1500);
+            }                
+        
+            function explode() {
+                document.getElementById('window').style.display= "none";
+            }
+        
+    </script>
+</head>
+<body>
+        @*HEADER*@
+        <header>
+            <div class="container-fluid">
+                <div class="row">
+                    @Html.Partial("Header")
+                </div>
+            </div>
+        </header>
+
+        @*КАТЕГОРИИ ТОВАРОВ*@
+        <div>
+            @Html.Partial("ProductGroups", WebUI.Models.MenuDictionary.GetGroups())
+        </div>
+
+        @*НАИМЕНОВАНИИ КАТЕГОРИИ И ТИП УПОРЯДОЧИВАНИЯ ТОВАРОВ*@
+        <div class="container">
+            @RenderSection("SortMenu", false)
+        </div>
+
+        @*ПЕРЕЧЕНЬ ТОВАРОВ, ВЫБОР ФИЛЬТРОВ, НУМЕРАЦИЯ СТРАНИЦ*@
+        <div class="wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        @RenderSection("Body", true)
+                    </div>
+                </div>
+            </div>
+
+            @*FOOTER*@
+            <footer>
+                @Html.Partial("Footer")
+            </footer>
+        </div>
+    
+    <div id="window">
+        Товар <label id="window-text"></label> добавлен в корзину        
+    </div>
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

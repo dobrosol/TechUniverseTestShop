@@ -1,0 +1,22 @@
+﻿@model WebUI.Models.PageModels.CaseViewModel
+
+@using WebUI.Models;
+
+@{
+    ViewBag.Title = "Корпуса";
+}
+
+@section Body
+{
+    @*ПЛИТКИ С ТОВАРАМИ*@
+    <div id="CaseDataSummary" class="container">
+        <div class="row">
+            @Html.Action("GetList")
+        </div>
+    </div>
+}
+
+@section SortMenu
+{
+    @Html.Action("GetSortMenu", "Shop", new { category = "Case", categoryName = "Корпуса", page = Model.PageInfo.CurrentPage, updateTargetId = "CaseDataSummary" })
+}

@@ -1,0 +1,45 @@
+﻿@model WebUI.Models.PageModels.Admin.AdminOrder
+@{
+    ViewBag.Title = "Информация о заказе";
+}
+
+@section Body
+{
+<div>
+    <h3>Заказ №@Model.Number - @Model.Cost грн</h3>
+    <hr />
+</div>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Partial("ProfilePartialView", Model.CustomerInformation)
+        </div>
+
+        <div class="col-md-8">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Производитель</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Стоимость</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Description)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(item.Name, "Details", item.Category, new { area = "", name = item.Name }, null) <div class="border-line"></div></td>
+                            <td>@item.Company <div class="border-line"></div></td>
+                            <td>@item.Price <div class="border-line"></div></td>
+                            <td>@item.Count <div class="border-line"></div></td>
+                            <td>@item.Cost</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="remove-filter">@Html.ActionLink("Вернуться к списку заказов", "Index", "Admin")</div>
+}

@@ -1,0 +1,19 @@
+﻿@model WebUI.Models.PageModels.ProductViewModel 
+@using WebUI.Models
+@{
+    ViewBag.Title = "Find";
+}
+
+@section Body
+{
+    <div id="productDataSummary">
+        <div class="Row">
+            @Html.Action("GetList")
+        </div>
+    </div>
+}
+@section SortMenu
+{
+    @Html.Action("GetSortMenu", "Shop", new { category = "Shop", categoryName = string.Format("Результат по запросу:{0}", Model.FindExpression), page = Model.PageInfo.CurrentPage, updateTargetId = "productDataSummary" })
+}
+

@@ -1,0 +1,84 @@
+﻿@model Domain.Concrete.ProductEntities.ASC
+
+@{
+    ViewBag.Title = "Добавление новой системы охлаждения";
+}
+
+@section Body{
+
+    @using (Html.BeginForm("Edit", "ASC", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="row">
+            <div class="col-md-offset-1 col-md-5">
+
+                <div class="form-group">
+                    @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @placeholder = "Наименование", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Name, null, new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(m => m.Company, new { htmlAttributes = new { @placeholder = "Производитель", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Company, null, new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(m => m.Description, new { htmlAttributes = new { @placeholder = "Описание", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(m => m.Price, new { htmlAttributes = new { @placeholder = "Цена", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Price, null, new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(m => m.FanDiameter, new { htmlAttributes = new { @placeholder = "Диаметр вентилятора, мм", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.FanDiameter, null, new { @class = "validation-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(m => m.Type, new { htmlAttributes = new { @placeholder = "Тип", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Type, null, new { @class = "validation-message" })
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-offset-1 col-md-5 remove-filter">
+                        <a href="@TempData["returnUrl"]">Вернуться к списку</a>
+                    </div>
+
+                    <div class="col-md-offset-2 col-md-4">
+                        <input class="btn group-name submit" type="submit" value="Сохранить" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-offset-1 col-md-5">
+
+                <div>
+                    <label>Картинка</label>
+                    <input type="file" name="image" />
+                </div>
+
+                <div class="image-edit">
+                    @if (Model != null)
+                    {
+                        if (Model.ImageData == null)
+                        {
+                            @:Нет картинки
+                        }
+                        else
+                        {
+                            <img src="@Url.Action("GetImage", "ASC", new { Model.Id })" />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}

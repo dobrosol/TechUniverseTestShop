@@ -1,0 +1,45 @@
+﻿@model WebUI.Models.PageModels.UserViewModel
+@{
+    ViewBag.Title = "Информация о зарегистрированном пользователе";
+}
+
+@section Body
+{
+    <div>
+        <h3>Профиль пользователя @Model.Profile.Id</h3>
+        <hr />
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            @Html.Partial("ProfilePartialView", Model.Profile)
+        </div>
+
+        <div class="col-md-7">
+            <div style="text-align:center;"><h4>История заказов</h4></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Код заказа</th>
+                        <th>Общая стоимость</th>
+                        <th>Дата/Время</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(order.Number.ToString(), "GetOrder", new { id = order.Number }) <div class="border-line"></div></td>
+                            <td>@order.Cost <div class="border-line"></div> </td>
+                            <td>@order.DateTime</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="remove-filter">
+        @Html.ActionLink("Вернуться к списку заказов", "Index", "Admin")
+    </div>
+}

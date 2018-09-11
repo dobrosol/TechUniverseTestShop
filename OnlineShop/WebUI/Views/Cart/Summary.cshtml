@@ -1,0 +1,11 @@
+﻿@model Domain.Concrete.Cart
+
+@*ОБЩЕЕ КОЛИЧЕСТВО ТОВАРОВ В КОРЗИНЕ*@
+<label class="count">
+    @Model.CalcTotalCount()
+</label>
+
+@*ОБЩАЯ СТОИМОСТЬ ВСХЕ ТОВАРОВ В КОРЗИНЕ*@
+<label class="count">
+    @Model.CalcTotalPrice() грн
+</label>
